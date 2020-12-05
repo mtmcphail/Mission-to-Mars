@@ -4,50 +4,164 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+     <!-- Add animation to button -->
+     <style>
+      .button {background-color: orange;
+            -webkit-border-radius: 60px;
+            border-radius: 60px;
+            border: none;
+            color: black;
+            cursor: pointer;
+            display: inline-block;
+            font-family: sans-serif;
+            font-size: 20px;
+            padding: 10px 10px;
+            text-align: center;
+            text-decoration: none;
+          }
+      
+      @keyframes glowing {
+          0% {
+            background-color: orange;
+            box-shadow: 0 0 5px orange;
+          }
+          50% {
+            background-color: orange;
+            box-shadow: 0 0 30px orange;
+          }
+          100% {
+            background-color: orange;
+            box-shadow: 0 0 5px orange;
+          }
+        }
+      .button {
+        animation: glowing 1100ms infinite;
+      }
+      </style>
+    
     <title>Mission to Mars</title>
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
     />
   </head>
+
   <body>
     <div class="container">
       <!-- Add Jumbotron to Header -->
-      <div class="jumbotron text-center">
+      <div class="jumbotron text-center" style="background: url(img/mars.jpeg)">
         <h1>Mission to Mars</h1>
         <!-- Add a button to activate scraping script -->
-        <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape New Data</a></p>
+        <p><a class="button" href="/scrape" role="button">SCRAPE NEW DATA</a></p>
       </div>
-      <!-- Add section for Mars News -->
-      <div class="row" id="mars-news">
-        <div class="col-md-12">
+    </div>
+    <!-- Add section for Mars News -->
+    <div class="container">
+      <div class="row ml-5 mt-5 mr-5 mb-5" id="mars-news">
+        <div class="col-md-12 mb-6 border border-secondary" style="background-color: orange">
           <div class="media">
             <div class="media-body">
-              <h2>Latest Mars News</h2>
+              <h2 class="primary-text pt-4">Latest Mars News</h2>
               <h4 class="media-heading">{{ mars.news_title }}</h4>
               <p>{{ mars.news_paragraph }}</p>
+              <br>
             </div>
           </div>
         </div>
       </div>
-      <!-- Section for Featured Image and Facts table -->
-      <div class="row" id="mars-featured-image">
-        <div class="col-md-8">
-          <h2>Featured Mars Image</h2>
+    </div>
+    
+    <!-- Section for Featured Image -->
+    <div class="container">
+      <div class="row text-center ml-5 mt-5 mr-5 mb-5" id="mars-featured-image-facts">
+        <div class="col-md-12 mb-4 border border-dark">
+          <h2 class = "text-primary pt-4">Featured Mars Image</h2>
+          <hr>
           <img
             src="{{mars.featured_image }}"
             class="img-responsive"
             alt="Responsive image"
+            style ="width:100%"
           />
+        </div>     
+      </div>
+    </div>
+    <p></p>
+
+    <!-- Section for Mars Facts and Current Weather -->
+    <div class="container">
+      <div class="row text-center ml-5 mt-5 mr-5 mb-5" id="mars-featured-image-facts">
+        <div class="col-md-6 mb-4 border border-dark">
+          <h2 class = "text-primary pt-4">Mars Facts</h2>
+          <hr>
+            <table class= "table table-sm table-bordered table-responsive-lg">
+                {{ mars.facts | safe }} 
+            </table>  
         </div>
-        <div class="col-md-4">
-          <!-- Mars Facts -->
-          <div class="row" id="mars-facts">
-            <h4>Mars Facts</h4>
-            {{ mars.facts | safe }}
-          </div>
+          
+        <div class="col-md-6 mb-4 border border-dark">
+          <h2 class = "text-primary pt-4">Current Weather on Mars</h2>
+              <hr>
+                <table class= "table table-sm table-bordered table-responsive-lg">
+                  {{ mars.mars_weather | safe }}
+                </table>
         </div>
       </div>
     </div>
+    <hr>
+
+
+<!-- Section for hemispheres -->      
+    <div class = "container">
+      <div class="row text-center ml-5 mt-5 mr-5 mb-5" id="mars-hemispheres">
+        <div class="col-md-12 border border-secondary">
+          <h2 class = "text-primary pt-4">Mars Hemispheres</h2>  
+        </div>
+        {% for item in mars.hemisphere_image_urls %}
+        <div class="col-md-6 mb-5 border border-secondary" style="background-color:lightgray">
+          <h5 class="text_info">{{item.title}}</h5>
+          <a href={{item.img_url}}>
+            <img 
+              src="{{item.img_url}}"
+              class="img-responsive"
+              alt={{item.title}}
+              style ="width:100%"
+            />
+          </a>
+        </div>
+          {% endfor %}
+        </div>
+        <hr>
+      </div>
+    </div>
+
+    <!-- Section for thumbnail hemispheres -->      
+    <div class = "container">
+      <div class="row text-center ml-5 mt-5 mr-5 mb-5" id="mars-hemispheres">
+        <div class="col-md-12 border border-secondary">
+          <h4 class = "text-secondary pt-4">Mars Hemisphere Thumbnails</h4>  
+        </div>
+        {% for item in mars.hemisphere_image_urls %}
+        <div class="col-md-3 border border-secondary">
+          <a href={{item.img_url}}>
+            <center>
+            <img 
+              src="{{item.img_url}}"
+              class="img-responsive"
+              alt={{item.title}}
+              style ="width:25%"
+              display="inline-block"
+            />
+            <figcaption>{{item.title}}</figcaption>
+            </center>
+          </a>
+        </div>
+          {% endfor %}
+        </div>
+        <hr>
+      </div>
+    </div>
+
   </body>
+
 </html>
