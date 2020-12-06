@@ -31,19 +31,9 @@ def scrape_all():
     mars_dict['last_modified'] = dt.datetime.now()
     mars_dict['hemisphere_image_urls'] = hemisphere_image_urls
     
-    #data = {
-    #    "news_title": news_title,
-    #    "news_paragraph": news_paragraph,
-    #    "featured_image": featured_image(browser),
-    #    "facts": mars_facts(),
-    #    "last_modified": dt.datetime.now(),
-    #    "hemispheres": hemisphere_image_urls
-    #}
-
     # Stop webdriver and return data
     browser.quit()
     return mars_dict
-
 
 def mars_news(browser):
     # Scrape Mars News
@@ -158,6 +148,8 @@ def mars_weather():
             'Common Wind Speed (mph|m/s)', 'Max Pressure (Pa)', 'Ave Pressure (Pa)', 'Min Pressure (Pa)']
 
     df_t = df2.T
+    if df_t.columns.tolist() == [0]:
+        df_t.columns=['No Data Today - check back later!']
 
     # Convert dataframe into HTML format, add bootstrap
     return df_t.to_html(classes="table table-striped")

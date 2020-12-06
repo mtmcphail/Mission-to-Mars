@@ -38,7 +38,15 @@
         animation: glowing 1100ms infinite;
       }
       </style>
-    
+ 
+ <!--Add style for image in jumbotron--> 
+      <style>
+        .jumbotron{
+          background-image: url('https://s3.us-east-1.amazonaws.com/act-module-assets-atomicjoltapps-com/images/cacf557c-3a9c-4559-a419-7c3c2590d5bb-data-thumbnail-module-10.png');
+          background-size: cover;
+          height: 100%;}
+      </style>
+
     <title>Mission to Mars</title>
     <link
       rel="stylesheet"
@@ -49,7 +57,7 @@
   <body>
     <div class="container">
       <!-- Add Jumbotron to Header -->
-      <div class="jumbotron text-center" style="background: url(img/mars.jpeg)">
+      <div class="jumbotron text-center" style="jumbotron">
         <h1>Mission to Mars</h1>
         <!-- Add a button to activate scraping script -->
         <p><a class="button" href="/scrape" role="button">SCRAPE NEW DATA</a></p>
@@ -61,7 +69,7 @@
         <div class="col-md-12 mb-6 border border-secondary" style="background-color: orange">
           <div class="media">
             <div class="media-body">
-              <h2 class="primary-text pt-4">Latest Mars News</h2>
+              <h2 class="text-secondary pt-4">Latest Mars News</h2>
               <h4 class="media-heading">{{ mars.news_title }}</h4>
               <p>{{ mars.news_paragraph }}</p>
               <br>
@@ -74,7 +82,7 @@
     <!-- Section for Featured Image -->
     <div class="container">
       <div class="row text-center ml-5 mt-5 mr-5 mb-5" id="mars-featured-image-facts">
-        <div class="col-md-12 mb-4 border border-dark">
+        <div class="col-md-12 mb-4 border border-secondary">
           <h2 class = "text-primary pt-4">Featured Mars Image</h2>
           <hr>
           <img
@@ -91,7 +99,7 @@
     <!-- Section for Mars Facts and Current Weather -->
     <div class="container">
       <div class="row text-center ml-5 mt-5 mr-5 mb-5" id="mars-featured-image-facts">
-        <div class="col-md-6 mb-4 border border-dark">
+        <div class="col-md-6 mb-4 border border-secondary">
           <h2 class = "text-primary pt-4">Mars Facts</h2>
           <hr>
             <table class= "table table-sm table-bordered table-responsive-lg">
@@ -99,7 +107,7 @@
             </table>  
         </div>
           
-        <div class="col-md-6 mb-4 border border-dark">
+        <div class="col-md-6 mb-4 border border-secondary">
           <h2 class = "text-primary pt-4">Current Weather on Mars</h2>
               <hr>
                 <table class= "table table-sm table-bordered table-responsive-lg">
@@ -108,52 +116,74 @@
         </div>
       </div>
     </div>
-    <hr>
 
-
-<!-- Section for hemispheres -->      
+<!-- Section for hemispheres-->      
     <div class = "container">
-      <div class="row text-center ml-5 mt-5 mr-5 mb-5" id="mars-hemispheres">
+      <div class="row text-center" id="mars-hemispheres">
         <div class="col-md-12 border border-secondary">
-          <h2 class = "text-primary pt-4">Mars Hemispheres</h2>  
-        </div>
-        {% for item in mars.hemisphere_image_urls %}
-        <div class="col-md-6 mb-5 border border-secondary" style="background-color:lightgray">
-          <h5 class="text_info">{{item.title}}</h5>
-          <a href={{item.img_url}}>
-            <img 
-              src="{{item.img_url}}"
+          <h2 class = "text-primary pt-4">Mars Hemispheres</h2> 
+          <table cellpadding = "20" cellspacing ="20">
+            <!-- cells containing hemi 1 - 2 image and title-->
+            <tr> 
+              {% for item in mars.hemisphere_image_urls[0:2]%}
+              <td style="padding-right: 5px">
+              <img 
+              src="{{item['img_url']}}"
               class="img-responsive"
-              alt={{item.title}}
+              alt=Responsive
               style ="width:100%"
-            />
-          </a>
+              />
+              {% endfor %} 
+            </td>
+            </tr>
+            <tr>
+              {% for item in mars.hemisphere_image_urls[0:2]%}
+              <td style="padding-right: 5px">
+                <h5 style="text-align: center;"> {{item['title']}}</h5>
+              </td>
+              {% endfor %}
+            </tr>
+            <!-- cells containing hemi 3 - 4 image and title-->
+            <tr>
+              {% for item in mars.hemisphere_image_urls[2:4]%}
+              <td style="padding-right: 5px">
+              <img 
+              src="{{item['img_url']}}"
+              class="img-responsive"
+              alt=Responsive
+              style ="width:100%"
+              />
+              {% endfor %}
+              </td>
+            </tr>
+            <tr>
+              {% for item in mars.hemisphere_image_urls[2:4]%}
+              <td style="padding-right: 5px">
+                <h5 style="text-align:center;"> {{item['title']}}</h5>
+              </td>
+              {% endfor %}
+            </tr>
+          </table>
         </div>
-          {% endfor %}
-        </div>
-        <hr>
       </div>
     </div>
 
-    <!-- Section for thumbnail hemispheres -->      
+    <!-- Hemisphere thumbnails--> 
     <div class = "container">
       <div class="row text-center ml-5 mt-5 mr-5 mb-5" id="mars-hemispheres">
-        <div class="col-md-12 border border-secondary">
+        <div class="col-sm-12 border border-secondary">
           <h4 class = "text-secondary pt-4">Mars Hemisphere Thumbnails</h4>  
         </div>
         {% for item in mars.hemisphere_image_urls %}
-        <div class="col-md-3 border border-secondary">
-          <a href={{item.img_url}}>
-            <center>
-            <img 
+        <div class="col-sm-3 border border-radius">
+          <a href={{item.img_url}} rel="lightbox" class="lightbox hoverZoomLink">
+              <img 
               src="{{item.img_url}}"
               class="img-responsive"
               alt={{item.title}}
               style ="width:25%"
-              display="inline-block"
-            />
-            <figcaption>{{item.title}}</figcaption>
-            </center>
+            >
+            <h6 style="text-align: left;"> {{item['title']}}</h6>
           </a>
         </div>
           {% endfor %}
@@ -163,5 +193,4 @@
     </div>
 
   </body>
-
 </html>
