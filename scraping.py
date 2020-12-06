@@ -63,14 +63,6 @@ def mars_news(browser):
     
     return news_title, news_p  
 
-# Use the parent element to find the first a tag and save it as `news_title`
-#news_title = slide_elem.find("div", class_='content_title').get_text()
-#news_title
-
-# Use the parent element to find the paragraph text
-#news_p = slide_elem.find('div', class_="article_teaser_body").get_text()
-#news_p
-
 #### Featured Image Scrape
 def featured_image(browser):
     # Visit URL
@@ -150,6 +142,9 @@ def mars_weather():
     df_t = df2.T
     if df_t.columns.tolist() == [0]:
         df_t.columns=['No Data Today - check back later!']
+        df_t['No Data Today - check back later!'] = df_t['No Data Today - check back later!'].replace(['Date', 'Sol', 'Max.', 
+                                'Avg.', 'Min.', 'Direction(most common)'],'NaN')
+
 
     # Convert dataframe into HTML format, add bootstrap
     return df_t.to_html(classes="table table-striped")

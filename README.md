@@ -1,4 +1,4 @@
-![logo](./Templates/mars.jpeg)
+![logo](./templates/mars.jpeg)
 # Mission-to-Mars: *a journey in scraping*... 
 
 
@@ -10,7 +10,8 @@ Thanks to the scrape friendly NASA websites, we can include all four of the hemi
 ## Objectives
 The focus of this phase spans 3 deliverables:
 
-1. Scrape Full-Resolution Mars Hemisphere Images and Titles
+1. Scrape Full-Resolution Mars Hemisphere Images and Titles:
+![logo](./templates/deliverable1.png)	
 2. Update the Web App with Mars Hemisphere Images and Titles
 3. Add Bootstrap 3 Components
 
